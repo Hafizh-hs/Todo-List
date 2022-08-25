@@ -1,4 +1,4 @@
- let todos = [];
+let todos = [];
 
         function addTodo(){
             const txtInput = document.getElementById("InputTodo");
@@ -9,7 +9,7 @@
             });
             txtInput.value = "";
 
-            localStorage.setItem("todoList",JSON.stringify(todos));
+            localStorage.setItem("todos",JSON.stringify(todos));
         
             renderTodoList();
             console.table(todos);
@@ -18,7 +18,7 @@
         function deleteTodo(id){
             const index = todos.findIndex(todo => todo.id === id);
             todos.splice(index,1);
-            localStorage.setItem("todoList",JSON.stringify(todos));
+            localStorage.setItem("todos",JSON.stringify(todos));
         
             renderTodoList();
 
@@ -28,15 +28,14 @@
             const index = todos.findIndex(todo => todo.id === id);
             todos[index].status = !todos[index].status;
 
-            localStorage.setItem("todoList",JSON.stringify(todos));
+            localStorage.setItem("todos",JSON.stringify(todos));
             renderTodoList();
-
             
         }
         function renderTodoList(){
             const todoList = document.getElementById('todo-list');
             todoList.innerHTML = "";
-        
+
             todos.forEach(function(todo){
             todoList.innerHTML += `<tr>
                             <td width="10%">
@@ -54,15 +53,15 @@
             .addEventListener("click",function(event){
                 event.preventDefault();
 
-                localStorage.setItem("todoList",JSON.stringify(todos));
+                localStorage.setItem("todos",JSON.stringify(todos));
                 addTodo();      
         });
 
         document.addEventListener("DOMContentLoaded",() => {
 
-        todos = JSON.parse(localStorage.getItem("todoList"));
+        todos = JSON.parse(localStorage.getItem("todos"));
         
-        localStorage.setItem("todoList",JSON.stringify(todos));
+        localStorage.setItem("todos",JSON.stringify(todos));
 
         renderTodoList();
     })              
