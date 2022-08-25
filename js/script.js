@@ -1,4 +1,4 @@
-let todos = localStorage || [];
+let todos =[];
 
         function addTodo(){
             const txtInput = document.getElementById("InputTodo");
@@ -8,8 +8,6 @@ let todos = localStorage || [];
                 status: false
             });
             
-
-            localStorage.setItem("todos",JSON.stringify(todos));
             renderTodoList();
             console.table(todos);
         }
@@ -18,7 +16,6 @@ let todos = localStorage || [];
             const index = todos.findIndex(todo => todo.id === id);
             todos.splice(index,1);
 
-            localStorage.setItem("todos",JSON.stringify(todos));
             renderTodoList();
         }
 
@@ -26,7 +23,6 @@ let todos = localStorage || [];
             const index = todos.findIndex(todo => todo.id === id);
             todos[index].status = !todos[index].status;
 
-            localStorage.setItem("todos",JSON.stringify(todos));
             renderTodoList();
 
 
@@ -53,11 +49,3 @@ let todos = localStorage || [];
                 event.preventDefault();
                 addTodo();
         });
-
-        document.addEventListener("DOMContentLoaded",() => {
-
-        todos = JSON.parse(localStorage.getItem("todos"));        
-        localStorage.setItem("todos",JSON.stringify(todos));
-
-        renderTodoList();
-    })              
