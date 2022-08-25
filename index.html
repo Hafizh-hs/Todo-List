@@ -29,12 +29,8 @@
                   </div>
               </div>
                   <table class="mt-3 table">
-                    <tr>
-                      <td width="10%"> <input class="form-check-input" type="checkbox" value="" id="todo-list"></td>
-                      <td>Todo Item</td>
-                      <td class="d-grid"><button class="btn btn-danger w-100 ">Delete</button></td>
-                    </tr>
-                  
+                    <tbody  id="todo-list">
+                     </tbody>
 
                   </table>
               </form>
@@ -54,59 +50,53 @@
 
       <script>
           let todos = [];
-          const txtInput = document.getElementById("InputTodo");
-          function tambah (){
+
+        function addTodo(){
+            const txtInput = document.getElementById("InputTodo");
             todos.push({
-              id: +new Date(),
-              title: txtInput.value,
-              status: false
+                id: +new Date(),
+                title: txtInput.value,
+                status: false
             });
             txtInput.value = "";
 
             renderTodoList();
+            console.table(todos);
+        }
 
-            
-          }
-          const index = todos.findIndex(todo => todo.id === id);
-          function deleteTodo(id){
+        function deleteTodo(id){
+            const index = todos.findIndex(todo => todo.id === id);
             todos.splice(index,1);
             renderTodoList();
-          }
+        }
 
-
-          function updateTodoStatus(id){
-            todos[index].status = true;
+        function updateTodoStatus(id){
+            const index = todos.findIndex(todo => todo.id === id);
+            todos[index].status = !todos[index].status;
             renderTodoList();
-          }
+        }
 
-          function renderTodoList(){
-            const todolist = document.getElementById("todo-list");
-            todolist.innerHTML = "";
-            for (const todo of todos){
-              todolist.innerHTML += `<tr> 
-                      <td width="10%"> 
-                      <input class="form-check-input" 
-                      ${todo.status === true?"checked" : ""}
-                      onclick="updateTodoStatus(${todo.id})" type="checkbox" value=""></td>
-                      <td class="${todo.status === true?"text-decoration-line-through" : ""}">${todo.title}</td>
-                      <td class="d-grid"><button class="btn btn-danger w-100" onclick="deleteTodo(${todo.id})" >Delete</button></td>
-                    </tr>`;
-
-
+        function renderTodoList(){
+            const todoList = document.getElementById("todo-list");
+            todoList.innerHTML = "";
+            for (const todo of todos) {
+                todoList.innerHTML += `<tr>
+                            <td width="10%">
+                                <input type="checkbox" 
+                                ${todo.status === true?"checked":""}
+                                class="form-check-input" 
+                                onclick="updateTodoStatus(${todo.id})"></td>
+                            <td class="${todo.status === true?"text-decoration-line-through":""}">${todo.title}</td>
+                            <td width="10%"><button ${todo.status===false?"disabled":""} class="btn btn-danger" onclick="deleteTodo(${todo.id})">Delete</button></td>
+                        </tr>`;
             }
-          }
+        }
 
-
-          
-          function btn (){
-            const button = document.getElementById("btnAdd");
-            btn.addEventListener("click",function(event){
-              event.preventDefault();
-              addTodo();
-
-            });
-          }
-
+        document.getElementById("btnAdd")
+            .addEventListener("click",function(event){
+                event.preventDefault();
+                addTodo();
+        });
 
 
       </script>
