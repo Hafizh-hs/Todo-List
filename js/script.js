@@ -48,7 +48,6 @@
                             <td width="10%"><button ${todo.status===false?"disabled":""} class="btn btn-danger" onclick="deleteTodo(${todo.id})">Delete</button></td>
                         </tr>`;
             }
-            localStorage.setItem("todoList",JSON.stringify(todos));
         }
 
         document.getElementById("btnAdd")
@@ -56,12 +55,11 @@
                 event.preventDefault();
 
                 localStorage.setItem("todoList",JSON.stringify(todos));
-                addTodo();
-
-                
+                addTodo();      
         });
 
     document.addEventListener("DOMContentLoaded",() => {
+
     todos = JSON.parse(localStorage.getItem("todoList"));
     
     localStorage.setItem("todoList",JSON.stringify(todos));
